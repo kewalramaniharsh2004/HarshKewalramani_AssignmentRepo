@@ -2,33 +2,25 @@
 pragma solidity ^0.8.0;
 
 contract EventLogger {
-    // Declare an event
-    event OwnershipClaimed(address indexed newOwner);
-    event PublicFunctionCalled(address caller);
-    
-    // State variable to store the owner's address
-    address public owner;
-    bytes32 private passwordHash;
+    // Define an event for recording a transaction
+    event TransactionRecorded(address indexed sender, address indexed recipient, uint amount, uint timestamp);
 
-    // Constructor sets the hashed password
-    constructor() {
-        passwordHash = keccak256(abi.encodePacked("Harsh"));
+    // Define an event for public function calls
+    event PublicFunctionCalled(address indexed caller, uint timestamp);
+
+    // State variable to store the message
+    string public message;
+
+    // Function to set a new message
+    function setMessage(string memory _message) public {
+        message = _message;
+        // Emitting event when message is set
+        emit PublicFunctionCalled(msg.sender, block.timestamp);
     }
 
-    // Function to check password and access restricted area
-    function accessRestrictedArea(string memory _password) public returns (string memory) {
-        if (keccak256(abi.encodePacked(_password)) == passwordHash) {
-            owner = msg.sender;
-            emit OwnershipClaimed(owner); // Log the event
-            return "You are the owner";
-        } else {
-            return "Access Denied";
-        }
-    }
-
-    // Public function accessible to everyone
-    function publicFunction() public returns (string memory) {
-        emit PublicFunctionCalled(msg.sender); // Log the event
-        return "Have a nice day";
+    // Function to record a new transaction
+    function recordTransaction(address _recipient, uint _amount) public {
+        // Emit the transaction recorded event
+        emit TransactionRecorded(msg.sender, _recipient, _amount, block.timestamp);
     }
 }
