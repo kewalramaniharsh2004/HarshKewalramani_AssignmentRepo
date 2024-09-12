@@ -1,12 +1,3 @@
-Assignment README 
-
-Submitting Date
-12-09-2024 (12th September-2024)
-
-Everything is followed as per steps
-Yes
-
-Solidity Smart Contract Examples
 This repository contains Solidity smart contract examples for two different use cases: a crowdfunding platform and a voting system. These contracts demonstrate important concepts such as fund management, deadline handling, proposal voting, and access control. Each contract is explained with examples of how to use it.
 
 Overview
